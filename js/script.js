@@ -44,28 +44,51 @@ var data=[
   
     }
   ];
+  var nextId=10006;
 
   $(document).ready(function()
   {
+
     Riempitabella();
-    addData();
+  
+    
     function Riempitabella()
     {
       var riga="";
 
       for(var i=0;i<data.length;i++)
       {
-        riga += "<tr><td>"+data[i].id+"</td><td>"+data[i].firstName+"</td><td>"+data[i].lastName+"</td><td><button type='button' class='btn btn-danger'>Elimina</button></td></tr>";
+        riga += "<tr><td>"+data[i].id+"</td><td>"+data[i].firstName+"</td><td>"+data[i].lastName+"</td><td data-id= "+data[i].id+"><button type='button' class='btn btn-danger' id='remove'>Elimina</button></td></tr>";
       }
       $("tbody").html(riga);
     }
-    function addData()
+
+
+
+    
+    
+    $("#add").click(function()
     {
-      $("#add").button().click(function()
+      $('#myModal').modal('show'); 
+      
+      $("#addworker").click(function()
       {
+        var nome=$('#inputnome').val();
+        var cognome=$('#inputcognome').val();
+
+        nextId++;
         
-        
+
+        $('tbody').append("<tr><td>"+nextId+"</td><td>"+nome+"</td><td>"+cognome+"</td><td data-id= "+nextId+"><button type='button' class='btn btn-danger' id='remove'>Elimina</button></td></tr>");
+     
+        $('#myModal').modal('hide'); 
       });
-    }
+    });
+
+    $("#infotable").on('click', '#remove', function()
+    {
+        $(this).closest('tr').remove();
+        
+    });
 
   });
